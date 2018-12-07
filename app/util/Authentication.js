@@ -3,8 +3,12 @@ const env = process.env.NODE_ENV;
 const api = appConfig.api[env];
 
 /**
- * Helper Class for the ol3 map.
- *
+ * Class that handles registration, login and logout via JWT by consuming
+ * the gondolin endpoints
+ *  - /login
+ *  - /register
+ *  - /getUserByToken
+ * 
  * @class
  */
 export class Authentication {
@@ -54,13 +58,12 @@ export class Authentication {
    */
   static async register(userdata) {
     return new Promise((resolve, reject) => {
-      debugger;
       const details = Object.assign({}, userdata, { username: undefined, password: undefined });
       const payload = {
         username: userdata.username,
         password: userdata.password,
         details: details
-      }
+      };
 
       fetch(`${api}/register`, {
         method: 'POST',
